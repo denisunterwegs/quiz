@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bass-Profil-Quiz | Groove Akademie</title>
+<!-- Links (Kurskarten) oeffnen im ganzen Fenster statt im iFrame -->
+<base target="_top">
+<style>html,body{margin:0;padding:16px;background:transparent;}</style>
+</head>
+<body>
+<!-- Basscoach Bass-Profil-Quiz "Dein roter Faden am E-Bass", Version fuer die Kursplattform (Groove Akademie, bestehende Mitglieder): ohne Preise, ohne Angebot, ohne E-Mail-Abfrage, sendet nichts -->
+<!-- Nichts aendern. Die Adressen der Kursseiten stehen im Block COURSE_LINKS im Script. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sansita:wght@700;800;900&family=Open+Sans:wght@400;600;700;800&display=swap">
+<style>
+#bc-quiz {
+  --bcq-surface: #ffffff; --bcq-fg: #000000; --bcq-muted: #3d3300; --bcq-track: #ffffff;
+  --bcq-yellow: #FBBE11; --bcq-yellow-soft: #FEF2CF; --bcq-pink: #F06680; --bcq-violet: #865BA3;
+  --bcq-shadow: 3px 3px 0 #000000;
+  --bcq-display: "Sansita", "Arial Black", Impact, sans-serif;
+  --bcq-body: "Open Sans", "Segoe UI", Arial, sans-serif;
+  max-width: 620px; margin: 0 auto; color: var(--bcq-fg); font-family: var(--bcq-body);
+  font-size: 16px; line-height: 1.55; scroll-margin-top: 90px; text-align: left;
+}
+#bc-quiz * { box-sizing: border-box; }
+#bc-quiz section { display: flex; flex-direction: column; gap: 18px; }
+#bc-quiz h1, #bc-quiz h2, #bc-quiz h3 { font-family: var(--bcq-display); font-weight: 800; line-height: 1.15; text-wrap: balance; margin: 0; color: inherit; letter-spacing: 0; text-transform: none; }
+#bc-quiz h1 { font-size: clamp(30px, 7vw, 42px); }
+#bc-quiz h2 { font-size: clamp(22px, 5vw, 28px); }
+#bc-quiz p { margin: 0; }
+#bc-quiz ul { margin: 0; }
+#bc-quiz .bcq-lead { font-size: 18px; color: var(--bcq-muted); }
+#bc-quiz .bcq-progress { height: 10px; background: var(--bcq-track); border: 2px solid #000; border-radius: 99px; overflow: hidden; }
+#bc-quiz .bcq-progress > div { height: 100%; background: var(--bcq-pink); transition: width .3s ease; }
+#bc-quiz .bcq-label { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--bcq-muted); font-weight: 700; }
+#bc-quiz .bcq-hint { font-size: 14px; color: var(--bcq-muted); }
+#bc-quiz .bcq-options { display: flex; flex-direction: column; gap: 12px; }
+#bc-quiz .bcq-opt {
+  font: inherit; text-align: left; color: var(--bcq-fg); background: var(--bcq-surface); width: 100%;
+  border: 2px solid #000; border-radius: 12px; padding: 14px 16px; cursor: pointer; box-shadow: var(--bcq-shadow);
+  display: flex; gap: 12px; align-items: flex-start; transition: transform .12s, box-shadow .12s, background .12s; margin: 0; line-height: 1.45;
+}
+#bc-quiz .bcq-opt:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #000; }
+#bc-quiz .bcq-opt:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+#bc-quiz .bcq-opt:focus-visible, #bc-quiz .bcq-btn:focus-visible, #bc-quiz .bcq-link:focus-visible, #bc-quiz .bcq-seg button:focus-visible { outline: 3px solid var(--bcq-violet); outline-offset: 3px; }
+#bc-quiz .bcq-opt.bcq-soft { background: var(--bcq-yellow-soft); }
+#bc-quiz .bcq-opt[aria-pressed="true"] { background: var(--bcq-yellow-soft); }
+#bc-quiz .bcq-box { flex: 0 0 22px; height: 22px; margin-top: 1px; border: 2px solid #000; border-radius: 5px; background: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 800; }
+#bc-quiz .bcq-opt[aria-pressed="true"] .bcq-box { background: var(--bcq-pink); color: #fff; }
+#bc-quiz .bcq-radio .bcq-box { border-radius: 50%; }
+#bc-quiz .bcq-nav { display: flex; gap: 14px; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+#bc-quiz .bcq-btn {
+  font-family: var(--bcq-body); font-size: 16px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+  border-radius: 6px; padding: 14px 26px; cursor: pointer; border: 2px solid #000; box-shadow: var(--bcq-shadow);
+  text-decoration: none; display: inline-block; text-align: center; margin: 0; line-height: 1.3; transition: transform .12s, box-shadow .12s;
+}
+#bc-quiz .bcq-btn:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #000; }
+#bc-quiz .bcq-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+#bc-quiz .bcq-primary { background: var(--bcq-pink); color: #fff; }
+#bc-quiz .bcq-primary:disabled { opacity: .5; cursor: not-allowed; transform: none; box-shadow: var(--bcq-shadow); }
+#bc-quiz .bcq-cta { font-size: 18px; padding: 18px 28px; width: 100%; }
+#bc-quiz .bcq-ghost { background: #fff; color: #000; }
+#bc-quiz .bcq-head { background: #000; color: var(--bcq-yellow); border-radius: 12px; padding: 20px 24px; display: flex; flex-direction: column; gap: 8px; }
+#bc-quiz .bcq-head .bcq-label { color: #fff; }
+#bc-quiz .bcq-head h1 { font-size: clamp(26px, 6vw, 34px); }
+#bc-quiz .bcq-small { font-size: 14px; color: var(--bcq-muted); }
+#bc-quiz .bcq-learn { padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+#bc-quiz .bcq-learn li { padding-left: 30px; position: relative; margin: 0; }
+#bc-quiz .bcq-learn li::before { content: "\2794"; position: absolute; left: 0; top: 0; font-weight: 800; color: #000; }
+#bc-quiz .bcq-offer { background: #fff; border: 3px solid #000; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px; box-shadow: 8px 8px 0 #000; }
+#bc-quiz .bcq-link { color: #000; font-weight: 700; text-decoration: underline; text-decoration-color: #000; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+#bc-quiz .bcq-title { font-family: var(--bcq-display); font-weight: 900; font-size: clamp(20px, 4.5vw, 26px); line-height: 1.2; padding-bottom: 12px; margin-bottom: 20px; border-bottom: 3px solid #000; }
+#bc-quiz .bcq-step { display: flex; flex-direction: column; gap: 12px; }
+#bc-quiz .bcq-card { display: flex; align-items: center; gap: 14px; background: #fff; border: 2px solid #000; border-radius: 12px; padding: 10px 14px 10px 10px; color: #000; text-decoration: none; transition: transform .12s, box-shadow .12s; }
+#bc-quiz .bcq-card:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 #000; }
+#bc-quiz .bcq-card:focus-visible { outline: 3px solid var(--bcq-violet); outline-offset: 3px; }
+#bc-quiz .bcq-card img { width: 60px; height: 60px; flex: 0 0 60px; object-fit: cover; border-radius: 8px; border: 2px solid #000; background: var(--bcq-yellow-soft); margin: 0; }
+#bc-quiz .bcq-card-big { border-width: 3px; box-shadow: 6px 6px 0 #000; }
+#bc-quiz .bcq-card-big:hover { box-shadow: 5px 5px 0 #000; }
+#bc-quiz .bcq-card-big img { width: 88px; height: 88px; flex-basis: 88px; }
+#bc-quiz .bcq-card-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+#bc-quiz .bcq-card-text span { line-height: 1.4; }
+#bc-quiz .bcq-card-arrow { font-weight: 700; font-size: 18px; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+#bc-quiz .bcq-card-more { font-size: 14px !important; font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+#bc-quiz s { text-decoration-thickness: 2px; }
+#bc-quiz, #bc-quiz p, #bc-quiz span, #bc-quiz li, #bc-quiz a, #bc-quiz label, #bc-quiz button, #bc-quiz div, #bc-quiz s { font-family: var(--bcq-body) !important; }
+#bc-quiz h1, #bc-quiz h2, #bc-quiz .bcq-title { font-family: var(--bcq-display) !important; font-weight: 800 !important; font-style: normal !important; }
+#bc-quiz .bcq-result { gap: 30px; }
+#bc-quiz h3, #bc-quiz .bcq-card-text strong { font-family: var(--bcq-body) !important; font-weight: 700; font-size: 18px; line-height: 1.3; }
+#bc-quiz .bcq-result p, #bc-quiz .bcq-result .bcq-small, #bc-quiz .bcq-card-text span { font-size: 16px; line-height: 1.5; }
+#bc-quiz .bcq-result .bcq-small { color: var(--bcq-muted); }
+#bc-quiz .bcq-result .bcq-label { font-size: 13px; }
+#bc-quiz .bcq-why { display: flex; flex-direction: column; gap: 4px; }
+#bc-quiz .bcq-why li { font-size: 16px; font-weight: 400; color: #000; line-height: 1.5; }
+#bc-quiz .bcq-offer-list { align-self: center; max-width: 460px; }
+/* Selbsteinschaetzung (Frage 3) */
+#bc-quiz .bcq-rates { display: flex; flex-direction: column; gap: 12px; }
+#bc-quiz .bcq-rate { background: #fff; border: 2px solid #000; border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--bcq-shadow); }
+#bc-quiz .bcq-rate-name { font-weight: 700; line-height: 1.35; }
+#bc-quiz .bcq-seg { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+#bc-quiz .bcq-seg button { font-size: 13px; font-weight: 600; line-height: 1.25; border: 2px solid #000; border-radius: 8px; background: #fff; color: #000; padding: 9px 4px; cursor: pointer; margin: 0; }
+#bc-quiz .bcq-seg button[aria-pressed="true"] { background: var(--bcq-pink); color: #fff; font-weight: 800; }
+/* Kacheln (Frage 2 und 3) */
+#bc-quiz .bcq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+#bc-quiz .bcq-grid .bcq-opt { padding: 12px; gap: 10px; font-size: 15px; font-weight: 600; align-items: center; min-height: 64px; }
+@media (max-width: 340px) { #bc-quiz .bcq-grid { grid-template-columns: 1fr; } }
+/* Skala (Rhythmus, Akkorde) */
+#bc-quiz .bcq-scale { background: #fff; border: 2px solid #000; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--bcq-shadow); }
+#bc-quiz .bcq-scale-ends { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--bcq-muted); }
+#bc-quiz .bcq-seg-scale button { font-size: 18px; font-weight: 800; padding: 12px 4px; }
+#bc-quiz .bcq-scale-text { background: var(--bcq-yellow-soft); border-radius: 8px; padding: 12px 14px; font-weight: 600; min-height: 72px; display: flex; align-items: center; }
+#bc-quiz .bcq-scale-empty { background: transparent; color: var(--bcq-muted); font-weight: 400; }
+#bc-quiz .bcq-grid .bcq-opt:last-child:nth-child(odd) { grid-column: 1 / -1; }
+#bc-quiz .bcq-kicker { display: block; font-family: var(--bcq-body) !important; font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--bcq-muted); margin-bottom: 4px; }
+/* Profil */
+#bc-quiz .bcq-profile { background: #fff; border: 2px solid #000; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+#bc-quiz .bcq-prow { display: grid; grid-template-columns: 1fr auto; gap: 5px 10px; align-items: baseline; }
+#bc-quiz .bcq-prow-name { font-weight: 700; font-size: 16px; }
+#bc-quiz .bcq-prow-lvl { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--bcq-muted); text-align: right; }
+#bc-quiz .bcq-bar { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+#bc-quiz .bcq-bar span { height: 12px; border: 2px solid #000; border-radius: 3px; background: #fff; }
+#bc-quiz .bcq-bar.l0 span.on { background: var(--bcq-pink); }
+#bc-quiz .bcq-bar.l1 span.on { background: var(--bcq-yellow); }
+#bc-quiz .bcq-bar.l2 span.on { background: #000; }
+#bc-quiz .bcq-tag { display: inline-block; font-size: 12px; font-weight: 700; line-height: 1.3; padding: 1px 7px; border-radius: 4px; border: 1.5px solid #000; background: var(--bcq-yellow-soft); margin-left: 6px; vertical-align: 2px; }
+#bc-quiz .bcq-tag-start { background: var(--bcq-pink); color: #fff; }
+#bc-quiz .bcq-tag-main { background: #000; color: var(--bcq-yellow); border-color: #000; }
+/* Ergebnisseite: oben nur die kleine Zeile, darunter direkt der schwarze Kasten */
+#bc-quiz.bcq-on-result .bcq-title { border-bottom: 0; padding-bottom: 0; margin-bottom: 10px; }
+#bc-quiz.bcq-on-result .bcq-title-main { display: none; }
+#bc-quiz .bcq-thread > .bcq-head { background: var(--bcq-pink); color: #fff; border: 3px solid #000; box-shadow: 6px 6px 0 #000; }
+#bc-quiz .bcq-thread > .bcq-head h1 { color: #fff; }
+#bc-quiz .bcq-profile-head { display: flex; flex-direction: column; gap: 4px; padding-bottom: 12px; border-bottom: 2px solid #000; }
+/* Roter Faden hinter dem Kursweg, Kachel mit angedockter Textbox */
+#bc-quiz .bcq-thread { position: relative; display: flex; flex-direction: column; gap: 34px; }
+#bc-quiz .bcq-thread > * { position: relative; z-index: 1; }
+#bc-quiz .bcq-path { display: flex; flex-direction: column; gap: 34px; }
+#bc-quiz .bcq-profile, #bc-quiz .bcq-offer { position: relative; z-index: 1; }
+#bc-quiz .bcq-thread::before { content: ""; position: absolute; left: 50%; transform: translateX(-50%); top: 30px; bottom: 70px; width: 90px; pointer-events: none; z-index: 0;
+  background: url("https://images.squarespace-cdn.com/content/v1/681b2138370d880a8f163346/d581844c-8fcb-4910-af95-2047917ed158/2026-10-09+BC+SP+Roter+Faden+%2B+Schatten.png?format=300w") repeat-y center top / 90px auto; }
+#bc-quiz .bcq-path .bcq-step { position: relative; z-index: 1; }
+#bc-quiz .bcq-thread > .bcq-step > .bcq-label, #bc-quiz .bcq-thread > .bcq-step > .bcq-small { position: relative; }
+#bc-quiz .bcq-blk { border: 2px solid #000; border-radius: 12px; overflow: hidden; background: #fff; }
+#bc-quiz .bcq-blk-big { border-width: 3px; box-shadow: 6px 6px 0 #000; }
+#bc-quiz .bcq-blk .bcq-card, #bc-quiz .bcq-blk .bcq-card:hover { border: 0; border-radius: 0; box-shadow: none; transform: none; }
+#bc-quiz .bcq-blk .bcq-card:hover { background: #fffbea; }
+#bc-quiz .bcq-blk-txt { background: var(--bcq-yellow-soft); border-top: 2px solid #000; padding: 12px 16px; }
+#bc-quiz .bcq-blk-txt p { font-size: 16px; line-height: 1.5; color: #000; }
+#bc-quiz .bcq-bonus { background: var(--bcq-yellow-soft); border: 2px solid #000; border-radius: 8px; padding: 10px 14px; font-weight: 600; text-align: center; }
+#bc-quiz .bcq-again { font-family: var(--bcq-body) !important; font-size: 16px; font-weight: 700; color: #000; background: none; border: 0; padding: 6px 4px; margin: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+#bc-quiz .bcq-again span { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+#bc-quiz .bcq-again:focus-visible { outline: 3px solid var(--bcq-violet); outline-offset: 3px; }
+@media (max-width: 480px) {
+  #bc-quiz .bcq-card { gap: 10px; padding: 8px 10px 8px 8px; }
+  #bc-quiz .bcq-card img { width: 48px; height: 48px; flex-basis: 48px; }
+  #bc-quiz .bcq-card-big img { width: 60px; height: 60px; flex-basis: 60px; }
+  #bc-quiz .bcq-card-text span { font-size: 14px !important; white-space: nowrap; }
+  #bc-quiz .bcq-card-text strong { font-size: 17px !important; }
+  #bc-quiz .bcq-card-arrow { gap: 6px; }
+  #bc-quiz .bcq-card-more { font-size: 13px !important; }
+}
+@media (prefers-reduced-motion: reduce) { #bc-quiz .bcq-progress > div { transition: none; } }
+</style>
+
+<div id="bc-quiz" aria-live="polite"></div>
+
+<script>
+(function () {
+  /* ===== COURSE_LINKS: Adressen der Kursseiten in der Kursplattform eintragen ===== */
+  var COURSE_LINKS = {
+    BAS: "https://myablefy.com/payer/s/basscoach/courses/bassanfaengersystem",
+    IST: "https://myablefy.com/payer/s/basscoach/courses/immer-sicher-tight",
+    BP: "https://myablefy.com/payer/s/basscoach/courses/bassline-prinzip",
+    PP: "https://myablefy.com/payer/s/basscoach/courses/pentatonik-profi",
+    RM: "https://myablefy.com/payer/s/basscoach/courses/Rockbass-Mastery",
+    SM: "https://myablefy.com/payer/s/basscoach/courses/slap-methode",
+    PE: "https://myablefy.com/payer/s/basscoach/courses/plek-experte"
+  };
+  /* ===== Ende COURSE_LINKS ===== */
+  var PATH = ["BAS", "BP", "IST", "PP", "RM", "PE", "SM"];
+  var WISHAREAS = ["PP", "RM", "SM", "PE", "GS", "FF"];
+
+  /* Bereiche: Kuerzel, Antworttext, Kurs, Satz fuer Folgekurse, Bruecke "Du willst ...?" */
+  var AREAS = [
+    ["BAS", "Grundlagen am E-Bass", "BAS", "Weil du die Grundlagen am E-Bass lernen willst.", "die Grundlagen am E-Bass lernen"],
+    ["IST", "Rhythmus und Groove", "IST", "Weil du den Rhythmus fühlen und im Groove bleiben willst.", "den Rhythmus fühlen"],
+    ["BP", "Eigene Basslinien finden", "BP", "Weil du eigene Basslinien finden willst.", "eigene Basslinien finden"],
+    ["TH", "Verstehen, welcher Ton passt", "BP", "Weil du verstehen willst, warum welcher Ton passt.", "verstehen, warum welcher Ton passt"],
+    ["PP", "Riffs und Fills spielen", "PP", "Weil du Riffs und Fills übers ganze Griffbrett spielen willst.", "Riffs und Fills übers ganze Griffbrett spielen"],
+    ["RM", "Rocksongs spielen und begleiten", "RM", "Weil du Rocksongs spielen und begleiten willst.", "Rocksongs spielen und begleiten"],
+    ["SM", "Slappen", "SM", "Weil du slappen lernen willst.", "slappen lernen"],
+    ["PE", "Mit Plektrum spielen", "PE", "Weil du mit Plektrum spielen willst.", "mit Plektrum spielen"],
+    ["GS", "Töne finden, ohne zu suchen", null, "", "Töne auf dem Griffbrett finden, ohne zu suchen"],
+    ["FF", "Kraft, Tempo, Beweglichkeit", null, "", "mehr Kraft, Tempo und Beweglichkeit in den Fingern"]
+  ];
+  var AREA = {}; AREAS.forEach(function (x) { AREA[x[0]] = { label: x[1], course: x[2], because: x[3], wish: x[4] }; });
+  var SHORT = { BAS: "Grundlagen", IST: "Rhythmus", BP: "Basslinien und Akkorde", PP: "Riffs und Fills", RM: "Rockbass", SM: "Slap", PE: "Plektrum", GS: "Griffbrett", FF: "Finger Fitness" };
+  var LEVELS = ["Gar nicht", "Kaum", "Teilweise", "Gut", "Sicher"];
+  var PLEVELS = ["Noch offen", "Kaum", "Teilweise", "Gut", "Sicher"];
+  var SAYS = ["klappt noch gar nicht. Hier fängst du richtig an.", "klappt kaum. Hier fängst du richtig an.", "klappt teilweise. Hier machst du es sicher.", "klappt schon gut. Hier holst du den Rest raus."];
+
+  var STEPS = [
+    { id: "q1", type: "single", grid: true, title: "Wo stehst du gerade?", options: [
+      ["start", "Ich fange gerade an (unter 1 Jahr)"],
+      ["mitte", "Die Basics kann ich, mehr noch nicht"],
+      ["umsteiger", "Ich komme von einem anderen Instrument"],
+      ["wieder", "Wiedereinstieg nach langer Pause"],
+      ["autodidakt", "Spiele seit ein paar Jahren. Bin fortgeschritten."] ]},
+    { id: "q2", type: "multi", grid: true, title: "Was willst du lernen?", hint: "Wähle alles, was dich reizt.",
+      options: AREAS.map(function (x) { return [x[0], x[1]]; }) },
+    { id: "q3", type: "prio", grid: true, title: "Was davon ist dir JETZT am wichtigsten?",
+      active: function (a) { return (a.q2 || []).length > 1; } },
+    { id: "q4", type: "rate", title: "Wie gut klappt das schon?", hint: "Sei ehrlich. Dann wird dein Ergebnis genauer.",
+      active: function (a) { return rateKeys(a).length > 0; } },
+    { id: "q5", type: "multi", grid: true, title: "Was davon kennst du?", hint: "Mehrere Antworten möglich.", exclusive: "keins", options: [
+      ["gucken", "Ich gucke ständig aufs Griffbrett"],
+      ["tempo", "Bei schnellem Tempo komme ich nicht mit"],
+      ["saiten", "Andere Saiten klingen mit oder es schnarrt"],
+      ["greifhand", "Greifhand verkrampft / kleiner Finger kommt nicht hin"],
+      ["keins", "Nichts davon"] ]},
+    { id: "q6", type: "scale", title: "Du spielst zu einem Song oder Metronom. Wie sicher bleibst du im Takt?", ends: ["Wackelt", "Sitzt sicher"], options: [
+      ["r_tempo", "Ich werde schneller oder langsamer, ohne es zu merken"],
+      ["r_zaehlen", "Ich zähle stur mit, aber fühlen tu ich es nicht"],
+      ["r_knifflig", "Einfache Sachen gehen, bei kniffligen Rhythmen fliege ich raus"],
+      ["r_meist", "Klappt meistens, nur bei Breaks oder Tempowechseln wackelt es"],
+      ["r_ok", "Rhythmus ist nicht mein Problem"] ]},
+    { id: "q7", type: "scale", title: "Angenommen, du musst diese Akkordfolge spontan begleiten: Am | C | G | G. Wie gut kommst du damit klar?", ends: ["Keine Ahnung", "Spiele frei"], options: [
+      ["a_keine", "Keine Ahnung, wie ich da rangehen soll"],
+      ["a_grundton", "Ich spiele die Grundtöne. Ich bin halt Grundton-Bassist"],
+      ["a_gleich", "Ich spiele mehr als Grundtöne, aber es klingt immer gleich"],
+      ["a_meist", "Ich finde passende Linien, aber nur mit Vorbereitung, nicht spontan"],
+      ["a_frei", "Ich spiele frei und verbinde die Akkorde mit eigenen Läufen"] ]},
+    { id: "q8", type: "single", grid: true, title: "Wo spielst du?", options: [
+      ["o_ich", "Nur für mich"],
+      ["o_traum", "Allein, aber ich will mit anderen spielen"],
+      ["o_band", "In Band oder bei Jams (nur für uns)"],
+      ["o_auftritt", "Mit Band, wir spielen auch Konzerte"] ]}
+  ];
+
+  var COURSES = {
+    BAS: { img: "https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/t3ywu9pn4u8jk7ev0v3l8rsxyz8v/064ec55ab868217147dacb3600535cfd8694768c54f8a2204275c13c16cb6e8c", lessons: 41, name: "Bass Anfänger System", url: "https://www.basscoach.de/bassanfaengersystem" },
+    IST: { img: "https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/lzqkecsd8ckmo8sn38gdse9gw18n/064ec55ab868217147dacb3600535cfd8694768c54f8a2204275c13c16cb6e8c", lessons: 19, name: "Immer Sicher Tight", url: "https://www.basscoach.de/immersichertight" },
+    BP: { img: "https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/3y1c0mbugg3sk8v4lejabd8mh3n2/064ec55ab868217147dacb3600535cfd8694768c54f8a2204275c13c16cb6e8c", lessons: 25, name: "Das Bassline Prinzip", url: "https://www.basscoach.de/basslineprinzip" },
+    PP: { img: "https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/201o0d7xphvzhfqggu71zzg8u0tc/064ec55ab868217147dacb3600535cfd8694768c54f8a2204275c13c16cb6e8c", lessons: 30, name: "Pentatonik Profi", url: "https://www.basscoach.de/pentatonikprofi" },
+    RM: { img: "https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/r1ip8ye6wgst34jpxzbkmc8sa8tz/064ec55ab868217147dacb3600535cfd8694768c54f8a2204275c13c16cb6e8c", lessons: 25, name: "Rockbass Mastery", url: "https://www.basscoach.de/rockbassmastery" },
+    SM: { img: "https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/3dhw3hqhdebhtqht8k0ijyyzdoxt/064ec55ab868217147dacb3600535cfd8694768c54f8a2204275c13c16cb6e8c", lessons: 20, name: "Slap Methode", url: "https://www.basscoach.de/slapmethode" },
+    PE: { img: "https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/5t3naqnhvgsa2omntxtlcp0vq365/064ec55ab868217147dacb3600535cfd8694768c54f8a2204275c13c16cb6e8c", lessons: 28, name: "Plek Experte", url: "https://www.basscoach.de/plekexperte" }
+  };
+  Object.keys(COURSE_LINKS).forEach(function (k) { if (COURSE_LINKS[k] && COURSE_LINKS[k].indexOf("KURSSEITE_") !== 0) COURSES[k].url = COURSE_LINKS[k]; });
+  var BONUS = { GS: "Griffbrett Sicherheit", FF: "Finger Fitness" };
+  var FILL = {
+    IST: "Damit dein Rhythmus sicher sitzt. Das hilft dir bei allem, was danach kommt.",
+    IST3: "Damit dein Rhythmus auch bei Breaks und Tempowechseln sicher sitzt.",
+    BP: "Damit du über Grundtöne hinauskommst und eigene Linien findest.",
+    PP: "Der nächste Schritt: mehr Ideen für Riffs und Fills.",
+    RM: "Der nächste Schritt: sicher und mit Druck in der Band."
+  };
+
+  var REASON = {
+    start: "Du fängst gerade an. Hier lernst du es von Anfang an richtig.",
+    umsteiger: "Du kommst von einem anderen Instrument. Hier lernst du die Technik am Bass von Grund auf.",
+    wieder: "Du steigst nach einer Pause wieder ein. Hier frischst du die Basics sauber auf.",
+    saiten: "Andere Saiten klingen mit. Hier lernst du, sauber zu dämpfen.",
+    greifhand: "Deine Greifhand verkrampft. Hier lernst du, locker mit allen Fingern zu greifen.",
+    gucken: "Du guckst ständig aufs Griffbrett und suchst Töne. Hier lernst du Griffmuster, die sicher sitzen.",
+    tempo: "Sobald es schneller wird, kommst du nicht mehr mit. Hier lernst du: Tempo kommt von Präzision.",
+    a_keine: "Mit Akkorden auf dem Zettel weißt du noch nichts anzufangen. Am Ende begleitest du Songs nach Akkorden.",
+    BAS: "Du willst die Grundlagen am E-Bass lernen. Genau dafür ist dieser Kurs da.",
+    r_knifflig: "Bei kniffligen Rhythmen fliegst du raus. Hier lernst du, auch schwere Grooves sicher zu spielen.",
+    r_zaehlen: "Du zählst stur mit, fühlst es aber nicht. Hier wird aus Zählen Gefühl.",
+    r_tempo: "Du wirst schneller oder langsamer, ohne es zu merken. Hier lernst du, sicher im Takt zu bleiben.",
+    IST: "Du willst den Rhythmus fühlen. Genau darum geht es hier.",
+    a_grundton: "Du spielst meist nur Grundtöne. Hier lernst du Schritt für Schritt mehr.",
+    a_gleich: "Deine Linien klingen immer gleich. Hier lernst du, sie abwechslungsreich zu bauen.",
+    a_meist: "Spontan fällt dir noch wenig ein. Hier lernst du, Linien direkt beim Spielen zu finden.",
+    basis: "Grundlagen und Rhythmus sitzen schon. Darum steigst du direkt hier ein.",
+    weiter: "Was du gewählt hast, sitzt schon. Hier geht es für dich weiter.",
+    bonusziel: "Deine Ziele deckst du mit den Bonuskursen ab. Als Kurs ist das hier dein nächster Schritt.",
+    o_auftritt: "Du spielst Konzerte. Damit gehst du sicherer auf die Bühne.",
+    o_band: "In der Band merkst du den Unterschied sofort.",
+    o_traum: "So wirst du bereit, endlich mit anderen zu spielen."
+  };
+
+  var root = document.getElementById("bc-quiz");
+  if (!root) return;
+  root.innerHTML = '<div class="bcq-title"><span class="bcq-kicker">Groove Akademie</span><span class="bcq-title-main">Dein roter Faden am E-Bass</span></div><div id="bcq-app"></div>';
+  var app = document.getElementById("bcq-app");
+  var state = { step: 0, answers: {}, started: false };
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function has(arr, x) { return arr.indexOf(x) !== -1; }
+  function rateKeys(a) { return WISHAREAS.filter(function (k) { return has(a.q2 || [], k); }); }
+  function isActive(i) { var s = STEPS[i]; return !s.active || s.active(state.answers); }
+  function activeList() { var out = []; for (var i = 0; i < STEPS.length; i++) if (isActive(i)) out.push(i); return out; }
+  function go(dir) {
+    var i = state.step + dir;
+    while (i >= 0 && i < STEPS.length && !isActive(i)) i += dir;
+    state.step = Math.max(0, i); render();
+  }
+
+  /* Werte: 0 = noch offen, 1 = teilweise, 2 = sitzt */
+  function evaluate(a) {
+    var wish = a.q2 || [], rate = a.q4 || {}, probs = a.q5 || [];
+    var chosen = function (k) { return has(wish, k); };
+    var gCount = ["gucken", "tempo", "saiten", "greifhand"].filter(function (x) { return has(probs, x); }).length;
+    var v = {};
+    v.BAS = (a.q1 === "start" || gCount >= 2 || a.q7 === "a_keine") ? 0 : (gCount === 1 ? 2 : 4);
+    if (chosen("BAS")) v.BAS = Math.min(v.BAS, 2);
+    v.IST = { r_tempo: 0, r_zaehlen: 1, r_knifflig: 2, r_meist: 3, r_ok: 4 }[a.q6];
+    if (v.IST === undefined) v.IST = 2;
+    if (chosen("IST")) v.IST = Math.min(v.IST, 2);
+    v.BP = { a_keine: 0, a_grundton: 1, a_gleich: 2, a_meist: 3, a_frei: 4 }[a.q7];
+    if (v.BP === undefined) v.BP = 2;
+    if (chosen("TH")) v.BP = Math.min(v.BP, 2);
+    ["PP", "RM", "SM", "PE"].forEach(function (k) { if (chosen(k) && rate[k] !== undefined) v[k] = rate[k]; });
+    var gs = has(probs, "gucken") ? 0 : null;
+    if (chosen("GS") && rate.GS !== undefined) gs = gs === null ? rate.GS : Math.min(gs, rate.GS);
+    if (gs !== null) v.GS = gs;
+    var ff = has(probs, "greifhand") ? 0 : (has(probs, "tempo") ? 1 : null);
+    if (chosen("FF") && rate.FF !== undefined) ff = ff === null ? rate.FF : Math.min(ff, rate.FF);
+    if (ff !== null) v.FF = ff;
+
+    var prioArea = wish.length === 1 ? wish[0] : (a.q3 === "unsicher" ? null : a.q3);
+    var prioCourse = prioArea ? AREA[prioArea].course : null;
+    var gap = function (c) { return v[c] !== undefined && v[c] < 4; };
+
+    /* Interessen als Kurse, sortiert: wichtigstes Ziel, dann groesste Luecke, dann Lernpfad */
+    var wanted = [];
+    wish.forEach(function (k) { var c = AREA[k].course; if (c && !has(wanted, c)) wanted.push(c); });
+    /* Rhythmusprobleme (Stufe 1 bis 4): Immer Sicher Tight zaehlt wie ein gewaehlter Kurs */
+    if (v.IST <= 3 && !has(wanted, "IST")) wanted.push("IST");
+    var ranked = wanted.filter(gap).sort(function (x, y) {
+      if (x === prioCourse) return -1; if (y === prioCourse) return 1;
+      if (v[x] !== v[y]) return v[x] - v[y];
+      return PATH.indexOf(x) - PATH.indexOf(y);
+    });
+
+    var course, rule;
+    var quer = (a.q1 === "umsteiger" || a.q1 === "wieder") && gCount >= 1;
+    if (v.BAS === 0 || chosen("BAS") || quer) { course = "BAS"; rule = 1; }
+    else if (ranked.length) { course = ranked[0]; rule = 3; }
+    else {
+      rule = 4; course = "RM";
+      var chain = ["BP", "PP", "RM"];
+      for (var i = 0; i < chain.length; i++) { if (gap(chain[i]) || v[chain[i]] === undefined) { course = chain[i]; break; } }
+    }
+
+    var follow = [];
+    function add(c, why) { if (c !== course && follow.length < 2 && !follow.some(function (f) { return f.c === c; })) follow.push({ c: c, why: why }); }
+    var istWhy = chosen("IST") ? AREA.IST.because : (v.IST === 3 ? FILL.IST3 : FILL.IST);
+    ranked.forEach(function (c) {
+      var area = wish.filter(function (k) { return AREA[k].course === c; });
+      if (prioArea && AREA[prioArea].course === c) area = [prioArea];
+      if (!area.length) { add(c, c === "IST" ? istWhy : FILL[c]); return; }
+      add(c, (c === prioCourse && wish.length > 1) ? "Dein wichtigstes Ziel: " + AREA[area[0]].wish + "." : AREA[area[0]].because);
+    });
+    /* Garantie: bei Rhythmusproblemen ist Immer Sicher Tight immer im Weg */
+    if (v.IST <= 3 && course !== "IST" && !follow.some(function (f) { return f.c === "IST"; })) {
+      if (follow.length < 2) follow.push({ c: "IST", why: istWhy }); else follow[1] = { c: "IST", why: istWhy };
+    }
+    if (v.BP <= 2) add("BP", FILL.BP);
+    ["PP", "RM"].forEach(function (c) { if (!(v[c] >= 3)) add(c, FILL[c]); });
+
+    var bonus = [];
+    if (v.GS !== undefined && v.GS <= 2) bonus.push("GS");
+    if (v.FF !== undefined && v.FF <= 2) bonus.push("FF");
+
+    var target = (prioCourse && prioCourse !== course && gap(prioCourse)) ? prioArea : null;
+    if (!target && (rule === 1 || rule === 2)) {
+      var t = ranked.filter(function (c) { return c !== course; })[0];
+      if (t) target = wish.filter(function (k) { return AREA[k].course === t; })[0];
+    }
+    return { v: v, course: course, follow: follow, rule: rule, chosen: wish, prioArea: prioArea, prioCourse: prioCourse, target: target, bonus: bonus, probs: probs };
+  }
+
+  function reasons(a, r) {
+    var out = [], c = r.course;
+    if (c === "BAS") {
+      if (a.q1 === "start") out.push(REASON.start);
+      if (a.q1 === "umsteiger" || a.q1 === "wieder") out.push(REASON[a.q1]);
+      ["gucken", "tempo", "saiten", "greifhand"].forEach(function (k) { if (has(r.probs, k)) out.push(REASON[k]); });
+      if (a.q7 === "a_keine") out.push(REASON.a_keine);
+      if (has(r.chosen, "BAS")) out.push(REASON.BAS);
+    } else if (c === "IST") {
+      if (REASON[a.q6]) out.push(REASON[a.q6]);
+      if (has(r.chosen, "IST")) out.push(REASON.IST);
+    } else if (r.rule === 3) {
+      var isPrio = c === r.prioCourse && r.chosen.length > 1;
+      if (c === "BP") {
+        if (REASON[a.q7] && a.q7 !== "a_frei") out.push(REASON[a.q7]);
+        var bpArea = isPrio ? r.prioArea : r.chosen.filter(function (k) { return AREA[k].course === "BP"; })[0];
+        out.push((isPrio ? "Das ist dein wichtigstes Ziel: " : "Du willst ") + AREA[bpArea].wish + (isPrio ? "." : ". Genau das lernst du hier."));
+      } else {
+        out.push((isPrio ? "Das ist dein wichtigstes Ziel. " : "") + "Du willst " + AREA[c].wish + " und sagst: " + SAYS[r.v[c]]);
+      }
+      if (r.v.BAS === 4 && r.v.IST === 4) out.push(REASON.basis);
+    } else {
+      if (c === "BP" && has(["a_grundton", "a_gleich", "a_meist"], a.q7)) out.push(REASON[a.q7]);
+      out.push(r.chosen.some(function (k) { return AREA[k].course; }) ? REASON.weiter : REASON.bonusziel);
+    }
+    out = out.slice(0, 2);
+    if ((c === "BAS" || c === "IST") && r.target) {
+      out.push("Du willst " + AREA[r.target].wish + "? " + (c === "BAS" ? "Mit sicheren Grundlagen klappt das viel schneller." : "Dafür muss zuerst dein Rhythmus sitzen.") + " Darum startest du hier.");
+    } else if (REASON[a.q8]) out.push(REASON[a.q8]);
+    return out.slice(0, 3);
+  }
+
+  function scrollTop() {
+    if (!state.started) return;
+    var r = root.getBoundingClientRect();
+    if (r.top < 0 || r.top > window.innerHeight * 0.5) root.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function render() {
+    root.classList.toggle("bcq-on-result", state.step >= STEPS.length);
+    if (state.step < STEPS.length) {
+      var q = STEPS[state.step];
+      if (q.type === "rate") renderRate(q); else if (q.type === "scale") renderScale(q); else renderQuestion(q);
+    } else renderResult();
+    scrollTop();
+    state.started = true;
+  }
+
+  function headHtml(q) {
+    var list = activeList(), pos = list.indexOf(state.step), total = list.length;
+    var pct = Math.round((pos / total) * 100);
+    return (state.step === 0 ? '<div style="display:flex;flex-direction:column;gap:10px"><h1>Wo stehst du am Bass?</h1><p class="bcq-lead">Höchstens 8 kurze Fragen, ca. 2 Minuten. Danach siehst du dein Bass-Profil und deinen Weg: womit du anfängst und wie es weitergeht.</p></div>' : '') +
+      '<div class="bcq-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + pct + '"><div style="width:' + pct + '%"></div></div>' +
+      '<div class="bcq-label">Frage ' + (pos + 1) + ' von ' + total + '</div>' +
+      '<h2 id="bcq-title">' + esc(q.title) + '</h2>' +
+      (q.hint ? '<p class="bcq-hint">' + esc(q.hint) + '</p>' : '');
+  }
+
+  function navHtml(showNext, enabled) {
+    return '<div class="bcq-nav">' +
+      (state.step > 0 ? '<button type="button" class="bcq-btn bcq-ghost" id="bcq-back">Zurück</button>' : '<span></span>') +
+      (showNext ? '<button type="button" class="bcq-btn bcq-primary" id="bcq-next" ' + (enabled ? '' : 'disabled') + '>Weiter</button>' : '') +
+      '</div>';
+  }
+
+  function bindNav() {
+    var back = document.getElementById("bcq-back"); if (back) back.addEventListener("click", function () { go(-1); });
+    var next = document.getElementById("bcq-next"); if (next) next.addEventListener("click", function () { go(1); });
+  }
+
+  function renderQuestion(q) {
+    var val = state.answers[q.id], isMulti = q.type === "multi";
+    var options = q.type === "prio"
+      ? AREAS.filter(function (x) { return has(state.answers.q2 || [], x[0]); }).map(function (x) { return [x[0], x[1]]; }).concat([["unsicher", "Unsicher. Ich hätte gern deine Einschätzung"]])
+      : q.options;
+    var selected = isMulti ? (val || []) : (val ? [val] : []);
+    var opts = options.map(function (o) {
+      var on = has(selected, o[0]);
+      return '<button type="button" class="bcq-opt ' + (isMulti ? "" : "bcq-radio") + (o[0] === "unsicher" ? " bcq-soft" : "") + '" data-code="' + o[0] + '" aria-pressed="' + on + '"><span class="bcq-box" aria-hidden="true">' + (on ? "✓" : "") + '</span><span>' + esc(o[1]) + '</span></button>';
+    }).join("");
+    app.innerHTML = '<section>' + headHtml(q) +
+      '<div class="bcq-options' + (q.grid ? ' bcq-grid' : '') + (q.type === "prio" ? ' bcq-prio' : '') + '" role="group" aria-labelledby="bcq-title">' + opts + '</div>' +
+      navHtml(isMulti, selected.length > 0) + '</section>';
+    Array.prototype.forEach.call(app.querySelectorAll(".bcq-opt"), function (b) {
+      b.addEventListener("click", function () {
+        var code = b.getAttribute("data-code");
+        if (isMulti) {
+          var arr = (state.answers[q.id] || []).slice();
+          if (has(arr, code)) arr = arr.filter(function (x) { return x !== code; });
+          else if (code === q.exclusive) arr = [code];
+          else arr = arr.filter(function (x) { return x !== q.exclusive; }).concat(code);
+          state.answers[q.id] = arr;
+          if (q.id === "q2" && state.answers.q3 && state.answers.q3 !== "unsicher" && !has(arr, state.answers.q3)) delete state.answers.q3;
+          renderQuestion(q);
+          var again = app.querySelector('[data-code="' + code + '"]'); if (again) again.focus();
+        } else {
+          state.answers[q.id] = code; go(1);
+        }
+      });
+    });
+    bindNav();
+  }
+
+  function renderRate(q) {
+    var rate = state.answers.q4 || {};
+    state.answers.q4 = rate;
+    var keys = rateKeys(state.answers);
+    var done = keys.every(function (k) { return rate[k] !== undefined; });
+    var rows = keys.map(function (k) {
+      return '<div class="bcq-rate" role="group" aria-label="' + esc(AREA[k].label) + '"><div class="bcq-rate-name">' + esc(AREA[k].label) + '</div><div class="bcq-seg">' +
+        LEVELS.map(function (l, n) { return '<button type="button" data-k="' + k + '" data-n="' + n + '" aria-pressed="' + (rate[k] === n) + '">' + l + '</button>'; }).join("") +
+        '</div></div>';
+    }).join("");
+    app.innerHTML = '<section>' + headHtml(q) + '<div class="bcq-rates">' + rows + '</div>' + navHtml(true, done) + '</section>';
+    Array.prototype.forEach.call(app.querySelectorAll(".bcq-seg button"), function (b) {
+      b.addEventListener("click", function () {
+        var k = b.getAttribute("data-k");
+        rate[k] = parseInt(b.getAttribute("data-n"), 10);
+        renderRate(q);
+        var again = app.querySelector('[data-k="' + k + '"][data-n="' + rate[k] + '"]'); if (again) again.focus();
+      });
+    });
+    bindNav();
+  }
+
+  function renderScale(q) {
+    var val = state.answers[q.id], idx = -1;
+    q.options.forEach(function (o, n) { if (o[0] === val) idx = n; });
+    var btns = q.options.map(function (o, n) {
+      return '<button type="button" data-code="' + o[0] + '" aria-pressed="' + (n === idx) + '" aria-label="Stufe ' + (n + 1) + ': ' + esc(o[1]) + '">' + (n + 1) + '</button>';
+    }).join("");
+    app.innerHTML = '<section>' + headHtml(q) +
+      '<div class="bcq-scale"><div class="bcq-scale-ends"><span>' + esc(q.ends[0]) + '</span><span>' + esc(q.ends[1]) + '</span></div>' +
+      '<div class="bcq-seg bcq-seg-scale" role="group" aria-labelledby="bcq-title">' + btns + '</div>' +
+      '<p class="bcq-scale-text' + (idx < 0 ? ' bcq-scale-empty' : '') + '">' + (idx < 0 ? "Tippe auf eine Stufe." : esc(q.options[idx][1])) + '</p></div>' +
+      navHtml(true, idx >= 0) + '</section>';
+    Array.prototype.forEach.call(app.querySelectorAll(".bcq-seg-scale button"), function (b) {
+      b.addEventListener("click", function () {
+        var code = b.getAttribute("data-code");
+        state.answers[q.id] = code; renderScale(q);
+        var again = app.querySelector('.bcq-seg-scale [data-code="' + code + '"]'); if (again) again.focus();
+      });
+    });
+    bindNav();
+  }
+
+  function card(c, meta, big) {
+    return '<a class="bcq-card' + (big ? ' bcq-card-big' : '') + '" href="' + c.url + '">' +
+      '<img src="' + c.img + '" alt="' + esc(c.name) + '" width="72" height="72" loading="lazy">' +
+      '<span class="bcq-card-text"><strong>' + esc(c.name) + '</strong><span>' + esc(meta) + '</span></span>' +
+      '<span class="bcq-card-arrow" aria-hidden="true"><span class="bcq-card-more">mehr infos</span><span>→</span></span></a>';
+  }
+
+  function profileHtml(r) {
+    var order = ["BAS", "IST", "BP", "PP", "RM", "SM", "PE", "GS", "FF"];
+    var mainKey = r.prioArea ? (AREA[r.prioArea].course || r.prioArea) : null;
+    var rows = order.filter(function (k) { return r.v[k] !== undefined; }).map(function (k) {
+      var lv = r.v[k], tags = "";
+      if (k === r.course) tags += '<span class="bcq-tag bcq-tag-start">Starte hier</span>';
+      if (k === mainKey) tags += '<span class="bcq-tag bcq-tag-main">Dein Hauptziel</span>';
+      var segs = [0, 1, 2, 3, 4].map(function (n) { return '<span class="' + (n <= lv ? "on" : "") + '"></span>'; }).join("");
+      return '<div class="bcq-prow"><div class="bcq-prow-name">' + esc(SHORT[k]) + tags + '</div><div class="bcq-prow-lvl">' + PLEVELS[lv] + '</div>' +
+        '<div class="bcq-bar l' + (lv <= 1 ? 0 : (lv === 2 ? 1 : 2)) + '" aria-hidden="true">' + segs + '</div></div>';
+    }).join("");
+    return '<div class="bcq-step"><div class="bcq-profile"><div class="bcq-profile-head"><div class="bcq-label">Wo du gerade stehst</div><p class="bcq-small">So steht dein Spiel gerade in den Bereichen, auf die es jetzt ankommt.</p></div>' + rows + '</div></div>';
+  }
+
+  function renderResult() {
+    var a = state.answers, r = evaluate(a), c = COURSES[r.course];
+    var meta = function (x) { return x.lessons + " Lektionen"; };
+    var all = [r.course].concat(r.follow.map(function (f) { return f.c; }));
+    var bonusHtml = "";
+    if (r.bonus.length) {
+      var names = r.bonus.map(function (k) { return BONUS[k]; });
+      bonusHtml = '<p class="bcq-bonus">' + (names.length > 1
+        ? "Passend zu deinen Lücken: " + names.join(" und ") + " sind in der Groove Akademie mit drin."
+        : "Passend zu deiner Lücke: " + names[0] + " ist in der Groove Akademie mit drin.") + '</p>';
+    }
+    var followHtml = r.follow.map(function (f, i) {
+      return '<div class="bcq-step"><div class="bcq-label">Danach, Schritt ' + (i + 2) + '</div><div class="bcq-blk">' + card(COURSES[f.c], meta(COURSES[f.c])) + '<div class="bcq-blk-txt"><p>' + esc(f.why) + '</p></div></div></div>';
+    }).join("");
+    var names = all.map(function (k) { return COURSES[k].name; });
+    app.innerHTML =
+      '<section class="bcq-result">' +
+      '<div class="bcq-thread">' +
+      '<div class="bcq-head"><h1>Dein roter Faden am E-Bass</h1></div>' +
+      profileHtml(r) +
+      '<div class="bcq-path">' +
+      '<div class="bcq-step"><div class="bcq-label">Starte hier</div><div class="bcq-blk bcq-blk-big">' + card(c, meta(c), true) +
+        '<div class="bcq-blk-txt bcq-why"><h3>Darum passt der Kurs gerade zu dir</h3><ul class="bcq-learn">' + reasons(a, r).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join("") + '</ul></div>' +
+      '</div></div>' +
+      followHtml +
+      '</div>' +
+      '<p style="text-align:center"><button type="button" class="bcq-again" id="bcq-again"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg><span>Quiz wiederholen</span></button></p>' +
+      '</section>';
+    root.setAttribute("data-path", all.join(">"));
+    document.getElementById("bcq-again").addEventListener("click", function () { state = { step: 0, answers: {}, started: true }; render(); });
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
