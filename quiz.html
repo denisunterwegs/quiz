@@ -170,13 +170,13 @@
 (function () {
   /* ===== COURSE_LINKS: Adressen der Kursseiten in der Kursplattform eintragen ===== */
   var COURSE_LINKS = {
-    BAS: "https://myablefy.com/payer/s/basscoach/courses/bassanfaengersystem",
-    IST: "https://myablefy.com/payer/s/basscoach/courses/immer-sicher-tight",
-    BP: "https://myablefy.com/payer/s/basscoach/courses/bassline-prinzip",
-    PP: "https://myablefy.com/payer/s/basscoach/courses/pentatonik-profi",
-    RM: "https://myablefy.com/payer/s/basscoach/courses/Rockbass-Mastery",
-    SM: "https://myablefy.com/payer/s/basscoach/courses/slap-methode",
-    PE: "https://myablefy.com/payer/s/basscoach/courses/plek-experte"
+    BAS: "https://myablefy.com/payer/s/basscoach/courses/bassanfaengersystem?lesson_id=2149665",
+    IST: "https://myablefy.com/payer/s/basscoach/courses/immer-sicher-tight?lesson_id=2158051",
+    BP: "https://myablefy.com/payer/s/basscoach/courses/bassline-prinzip?lesson_id=2150552",
+    PP: "https://myablefy.com/payer/s/basscoach/courses/pentatonik-profi?lesson_id=3066099",
+    RM: "https://myablefy.com/payer/s/basscoach/courses/Rockbass-Mastery?lesson_id=2751576",
+    SM: "https://myablefy.com/payer/s/basscoach/courses/slap-methode?lesson_id=2211541",
+    PE: "https://myablefy.com/payer/s/basscoach/courses/plek-experte?lesson_id=3708843"
   };
   /* ===== Ende COURSE_LINKS ===== */
   var PATH = ["BAS", "BP", "IST", "PP", "RM", "PE", "SM"];
@@ -525,7 +525,7 @@
     return '<a class="bcq-card' + (big ? ' bcq-card-big' : '') + '" href="' + c.url + '">' +
       '<img src="' + c.img + '" alt="' + esc(c.name) + '" width="72" height="72" loading="lazy">' +
       '<span class="bcq-card-text"><strong>' + esc(c.name) + '</strong><span>' + esc(meta) + '</span></span>' +
-      '<span class="bcq-card-arrow" aria-hidden="true"><span class="bcq-card-more">mehr infos</span><span>→</span></span></a>';
+      '<span class="bcq-card-arrow" aria-hidden="true"><span class="bcq-card-more">starten</span><span>→</span></span></a>';
   }
 
   function profileHtml(r) {
